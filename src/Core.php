@@ -27,7 +27,7 @@ class Core
 
 
     // WSDL Files:
-    // test https://ws.dev.aramex.net/ShippingAPI.V2/Shipping/Service_1_0.svc?singleWsdl
+    // test https://ws.sbx.aramex.net/shippingapi/shipping/service_1_0.svc?singleWsdl
     // live https://ws.aramex.net/ShippingAPI.V2/Shipping/Service_1_0.svc?singleWsdl
 
     /**
@@ -251,7 +251,7 @@ class Core
             'ClosingTime' => $pickupDetails->ClosingTime, //+28 hours
             'PickupContact' => [
                 'PersonName'    => $pickupAddress->PersonName, // should be static 'SomeName',
-                'CompanyName'   => $pickupAddress->CompanyName, // config file
+                'CompanyName'   => $pickupAddress->CompanyName ?? $pickupAddress->PersonName, // config file
                 'PhoneNumber1'  => $pickupAddress->PhoneNumber1, // should be static '0777777',
                 'CellPhone'     => $pickupAddress->CellPhone, // should be static '0555555',
                 'EmailAddress'  => $pickupAddress->EmailAddress // should be static 'email@somedomain.com'
