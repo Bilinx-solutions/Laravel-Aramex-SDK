@@ -1,6 +1,6 @@
 <?php
 
-namespace Octw\Aramex;
+namespace Shipper\Aramex;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -14,8 +14,8 @@ class AramexServiceProvider extends ServiceProvider
     public function register()
     {
         // publishing main Class in the package
-        $this->app->make('Octw\Aramex\Aramex');
-        
+        $this->app->make('Shipper\Aramex\Aramex');
+
         // // merging config file
         // $this->mergeConfigFrom(
         //     __DIR__ . '/config/main.php', 'aramex'
@@ -34,6 +34,5 @@ class AramexServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/config/main.php' => config_path('aramex.php'),
         ]);
-
     }
 }

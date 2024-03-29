@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Octw\Aramex\Aramex;
+use Shipper\Aramex\Aramex;
 
 class TestController extends Controller
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Octw\Aramex;
+namespace Shipper\Aramex;
 
-use Octw\Aramex\Core;
-use Octw\Aramex\Helpers\AramexHelper;
+use Shipper\Aramex\Core;
+use Shipper\Aramex\Helpers\AramexHelper;
 
 /**
  * The Package Interface that will be used in App\Http\ 

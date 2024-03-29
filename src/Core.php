@@ -1,6 +1,6 @@
 <?php
 
-namespace Octw\Aramex;
+namespace Shipper\Aramex;
 
 
 /**

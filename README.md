@@ -1,69 +1,60 @@
 # Aramex-PHP-SDK
-[![Packagist Downloads](https://img.shields.io/packagist/dt/octw/aramex?logo=packagist&logoColor=white) ](https://packagist.org/packages/octw/aramex)
+
+[![Packagist Downloads](https://img.shields.io/packagist/dt/shipper/aramex?logo=packagist&logoColor=white) ](https://packagist.org/packages/shipper/aramex)
 <br/>
 Open source Laravel SDK to integrate with Aramex API's.
 
-## Installation 
+## Installation
 
-``` bash
-composer require octw/aramex
+```bash
+composer require shipper/aramex
 ```
 
-  To publish the package and create config file `aramex.php` run this command
-  ``` bash
-  php artisan vendor:publish --provider="Octw\Aramex\AramexServiceProvider"
-  ```
-  
-  > Note that this package require `SOAP` extension on your server.<br>
-  > Refer to those link for installation <br>
-  > [php.net](https://www.php.net/manual/en/soap.installation.php) <br>
-  > [digitalocean.com](https://www.digitalocean.com/community/questions/digital-ocean-a-soapclient-installation)
+To publish the package and create config file `aramex.php` run this command
+
+```bash
+php artisan vendor:publish --provider="Shipper\Aramex\AramexServiceProvider"
+```
+
+> Note that this package require `SOAP` extension on your server.<br>
+> Refer to those link for installation <br> > [php.net](https://www.php.net/manual/en/soap.installation.php) <br> > [digitalocean.com](https://www.digitalocean.com/community/questions/digital-ocean-a-soapclient-installation)
 
 ## Configurations
 
-  After install the package you should publish the package in your project, 
-  then it will create `config/aramex.php` file open it  and set your CientInfo and set other params depending on you business model. <br /> 
-  NOTE: read comments in config file carefully 
+After install the package you should publish the package in your project,
+then it will create `config/aramex.php` file open it and set your CientInfo and set other params depending on you business model. <br />
+NOTE: read comments in config file carefully
 
 ## A Brief Documentation
 
-  First you should read the official aramex documentation, understand the flow of their API's and parameters and decide the main puroposes of using aramex API.<br />
-  doucmentation link: https://www.aramex.com/docs/default-source/resourses/resourcesdata/shipping-services-api-manual.pdf
-  
-  You can use the Aramex interface through: <br />
-  
-  ```php
-  use Octw\Aramex\Aramex;
-  ```
-  or add it to Aliases in config/app.php file <br />
-  
-  ```php
-  'Aramex' => Octw\Aramex\Aramex::class,
-  ```
-  
-  then
-  
-  ```php
-    use Aramex;
-  ```
-  
-  However, The integration has 7 main functions:<br />
-      - Create Pickup.<br />
-      - Cancel Pickup. <br />
-      - Create Shipment.<br />
-      - Calculate Rate. <br />
-      - Track Shipments. <br />
-      - Fetch Countries. <br />
-      - Fetch Cities. <br />
-      - Validate Address. <br />
-     
-  
-  
+First you should read the official aramex documentation, understand the flow of their API's and parameters and decide the main puroposes of using aramex API.<br />
+doucmentation link: https://www.aramex.com/docs/default-source/resourses/resourcesdata/shipping-services-api-manual.pdf
+
+You can use the Aramex interface through: <br />
+
+```php
+use Shipper\Aramex\Aramex;
+```
+
+or add it to Aliases in config/app.php file <br />
+
+```php
+'Aramex' => Shipper\Aramex\Aramex::class,
+```
+
+then
+
+```php
+  use Aramex;
+```
+
+However, The integration has 7 main functions:<br /> - Create Pickup.<br /> - Cancel Pickup. <br /> - Create Shipment.<br /> - Calculate Rate. <br /> - Track Shipments. <br /> - Fetch Countries. <br /> - Fetch Cities. <br /> - Validate Address. <br />
+
 ### Create Pickup Method
 
-  takes array of parameters
-  
-``` php
+takes array of parameters
+
+```php
     "name" => 'John' // User’s Name, Sent By or in the case of the consignee, to the Attention of.
     "cell_phone" => '+123456789' // Phone Number
     "phone" => '+123456789' // Phone Number
@@ -84,8 +75,9 @@ composer require octw/aramex
     "volume" => 80 // volume of the pickup  (in CM^3)
 ```
 
-   return stdClass :  
-``` json
+return stdClass :
+
+```json
      {
       "error": 0,
       "pickupGUID": "4e29b471-0ed8-4ba8-ac0e-fddedfb6beec",
@@ -99,9 +91,10 @@ composer require octw/aramex
       ]
      }
 ```
-      
-   Sample Code :
-``` php 
+
+Sample Code :
+
+```php
     $data = Aramex::createPickup([
     		'name' => 'MyName',
     		'cell_phone' => '+123123123',
@@ -117,7 +110,7 @@ composer require octw/aramex
     		'ready_time' => time()  + 43000,
     		'last_pickup_time' => time() +  45000,
     		'closing_time' => time()  + 45000,
-    		'status' => 'Ready', 
+    		'status' => 'Ready',
     		'pickup_location' => 'some location',
     		'weight' => 123,
     		'volume' => 1
@@ -127,15 +120,15 @@ composer require octw/aramex
        if (!$data->error)
           $guid = $data->pickupGUID;
 ```
-    
-    
+
 ### Create Shipment Method
 
-  takes array of parameters
+takes array of parameters
+
 ```php
             'shipper' => [
-                'name' => 'Steve', 
-                'email' => 'email@users.companies', 
+                'name' => 'Steve',
+                'email' => 'email@users.companies',
                 'phone'      => '+123456789982',
                 'cell_phone' => '+321654987789',
                 'country_code' => 'US',
@@ -168,13 +161,13 @@ composer require octw/aramex
             'description' => 'Goods Description, like Boxes of flowers', // description
             'reference' => '01020102' // reference to print on shipment report (policy)
             'shipper_reference' => '19191', // optional
-            'consignee_reference' => '010101', // optional 
+            'consignee_reference' => '010101', // optional
             'services' => 'CODS,FIRST,FRDM, .. ' // ',' seperated string, refer to services in the official documentation
             'cash_on_delivery_amount' => 10.32 // in case of CODS (in USD only "as they want")
             'insurance_amount' => 0, // optional
             'collect_amount' => 0, // optional
             'customs_value_amount' => 0, //optional (required for express shipping)
-            'cash_additional_amount' => 0, // optional 
+            'cash_additional_amount' => 0, // optional
             'cash_additional_amount_description' => 'Something here',
             'product_group' => 'DOM', // or EXP (defined in config file, if you dont pass it will take the config value)
             'product_type' => 'PPX', // refer to the official documentation (defined in config file, if you dont pass it will take the config value)
@@ -182,97 +175,99 @@ composer require octw/aramex
             'payment_option' => null, // refer to the official documentation (defined in config file, if you dont pass it will take the config value)
 ```
 
-   retrun stdClass:
-``` json
-    {
-      "Transaction": {
-          "Reference1": "",
-          "Reference2": "",
-          "Reference3": "",
-          "Reference4": "",
-          "Reference5": null
-      },
-      "Notifications": {},
+retrun stdClass:
+
+```json
+{
+  "Transaction": {
+    "Reference1": "",
+    "Reference2": "",
+    "Reference3": "",
+    "Reference4": "",
+    "Reference5": null
+  },
+  "Notifications": {},
+  "HasErrors": false,
+  "Shipments": {
+    "ProcessedShipment": {
+      "ID": "0",
+      "Reference1": null,
+      "Reference2": null,
+      "Reference3": null,
+      "ForeignHAWB": null,
       "HasErrors": false,
-      "Shipments": {
-          "ProcessedShipment": {
-              "ID": "0",
-              "Reference1": null,
-              "Reference2": null,
-              "Reference3": null,
-              "ForeignHAWB": null,
-              "HasErrors": false,
-              "Notifications": {},
-              "ShipmentLabel": null,
-              "ShipmentDetails": {
-                  "Origin": "AMM",
-                  "Destination": "AMM",
-                  "ChargeableWeight": {
-                      "Unit": "KG",
-                      "Value": 1
-                  },
-                  "DescriptionOfGoods": "Hello World",
-                  "GoodsOriginCountry": null,
-                  "NumberOfPieces": 1,
-                  "ProductGroup": "EXP",
-                  "ProductType": "EPX",
-                  "PaymentType": "P",
-                  "PaymentOptions": null,
-                  "CustomsValueAmount": {
-                      "CurrencyCode": "USD",
-                      "Value": 0
-                  },
-                  "CashOnDeliveryAmount": {
-                      "CurrencyCode": "USD",
-                      "Value": 0
-                  },
-                  "InsuranceAmount": {
-                      "CurrencyCode": "USD",
-                      "Value": 0
-                  },
-                  "CashAdditionalAmount": {
-                      "CurrencyCode": "USD",
-                      "Value": 0
-                  },
-                  "CollectAmount": {
-                      "CurrencyCode": "USD",
-                      "Value": 0
-                  },
-                  "Services": null
-              },
-              "ShipmentAttachments": {
-                  "ProcessedShipmentAttachment": {
-                      "Name": "CommercialInvoice_6048abe44a664c3cb7ce9f7d47879115.pdf",
-                      "Type": "CommercialInvoice",
-                      "Url": "http://www.dev.aramex.net/content/rpt_cache/CommercialInvoice_6048abe44a664c3cb7ce9f7d47879115.pdf"
-                  }
-              },
-              "ShipmentThirdPartyProcessedObject": null
-          }
-      }
-   }
-```
-
-  Error Response <br />
-
-```json  
-  {
-    "error": true,
-    "errors": [
-      {
-        "Code": "Aramex Error Code",
-        "Message": "Aramex Error Message"
+      "Notifications": {},
+      "ShipmentLabel": null,
+      "ShipmentDetails": {
+        "Origin": "AMM",
+        "Destination": "AMM",
+        "ChargeableWeight": {
+          "Unit": "KG",
+          "Value": 1
+        },
+        "DescriptionOfGoods": "Hello World",
+        "GoodsOriginCountry": null,
+        "NumberOfPieces": 1,
+        "ProductGroup": "EXP",
+        "ProductType": "EPX",
+        "PaymentType": "P",
+        "PaymentOptions": null,
+        "CustomsValueAmount": {
+          "CurrencyCode": "USD",
+          "Value": 0
+        },
+        "CashOnDeliveryAmount": {
+          "CurrencyCode": "USD",
+          "Value": 0
+        },
+        "InsuranceAmount": {
+          "CurrencyCode": "USD",
+          "Value": 0
+        },
+        "CashAdditionalAmount": {
+          "CurrencyCode": "USD",
+          "Value": 0
+        },
+        "CollectAmount": {
+          "CurrencyCode": "USD",
+          "Value": 0
+        },
+        "Services": null
       },
-      {
-        "Code": "Aramex Error Code",
-        "Message": "Aramex Error Message"
-      }
-    ]
+      "ShipmentAttachments": {
+        "ProcessedShipmentAttachment": {
+          "Name": "CommercialInvoice_6048abe44a664c3cb7ce9f7d47879115.pdf",
+          "Type": "CommercialInvoice",
+          "Url": "http://www.dev.aramex.net/content/rpt_cache/CommercialInvoice_6048abe44a664c3cb7ce9f7d47879115.pdf"
+        }
+      },
+      "ShipmentThirdPartyProcessedObject": null
+    }
   }
+}
 ```
-  Sample Code    
-    
-```php  
+
+Error Response <br />
+
+```json
+{
+  "error": true,
+  "errors": [
+    {
+      "Code": "Aramex Error Code",
+      "Message": "Aramex Error Message"
+    },
+    {
+      "Code": "Aramex Error Code",
+      "Message": "Aramex Error Message"
+    }
+  ]
+}
+```
+
+Sample Code
+
+```php
         $callResponse = Aramex::createShipment([
             'shipper' => [
                 'name' => 'Steve',
@@ -322,13 +317,13 @@ composer require octw/aramex
 
 ### Calculate Rate
 
-  Calculate Rate API is used to get shipment pricing and details before you ship it. <br />
-  
-  it takes 4 parameters:<br />
-  `Aramex::calculateRate($originAddress, $destinationAddress, $shipementDetails, $currency)` <br /><br />
-  `$originAddress` and `$destinationAddress` are both arrays as follows: 
-  
-``` php
+Calculate Rate API is used to get shipment pricing and details before you ship it. <br />
+
+it takes 4 parameters:<br />
+`Aramex::calculateRate($originAddress, $destinationAddress, $shipementDetails, $currency)` <br /><br />
+`$originAddress` and `$destinationAddress` are both arrays as follows:
+
+```php
     [
         'line1' => 'String|Required',
         'line2' => 'String',
@@ -342,15 +337,15 @@ composer require octw/aramex
         'building_number' => 'String',
         'building_name' => 'String',
     ]
-``` 
-  
-  The `$shipmentDetails` parameter is an array describes some details about the shipment as follows:
-  
-``` php
+```
+
+The `$shipmentDetails` parameter is an array describes some details about the shipment as follows:
+
+```php
     [
         'payment_type' => '', // default value in config file
         'product_group' => '', // default value in config file
-        'product_type' => '', // default value in config file 
+        'product_type' => '', // default value in config file
         'weight' => 5.2, // IN KG (Kilograms)
         'number_of_pieces' => 'Integer|Required',
         'height' => 5, // Dimensions in CM (optional)
@@ -358,13 +353,13 @@ composer require octw/aramex
         'length' => 2  // Dimensions in CM (optional)
     ]
 ```
-  
-  The `$currency` is a string (3 Chars) for prefered currency calculations like `USD`,`AED`,`EUR`,`KWD` and so on. <br />
-  Note that in case you want pass the dimensions, it will not take the parameters unless you pass all the `height`, `width`, `length`. <br />
-  
-  Sample Code 
-  
-``` php
+
+The `$currency` is a string (3 Chars) for prefered currency calculations like `USD`,`AED`,`EUR`,`KWD` and so on. <br />
+Note that in case you want pass the dimensions, it will not take the parameters unless you pass all the `height`, `width`, `length`. <br />
+
+Sample Code
+
+```php
         $originAddress = [
             'line1' => 'Test string',
             'city' => 'Amman',
@@ -380,7 +375,7 @@ composer require octw/aramex
         $shipmentDetails = [
             'weight' => 5, // KG
             'number_of_pieces' => 2,
-            'payment_type' => 'P', // if u don't pass it, it will take the config default value 
+            'payment_type' => 'P', // if u don't pass it, it will take the config default value
             'product_group' => 'EXP', // if u don't pass it, it will take the config default value
             'product_type' => 'PPX', // if u don't pass it, it will take the config default value
             'height' => 5.5, // CM
@@ -390,85 +385,86 @@ composer require octw/aramex
 
         $shipmentDetails = [
             'weight' => 5, // KG
-            'number_of_pieces' => 2, 
+            'number_of_pieces' => 2,
         ];
 
         $currency = 'USD';
         $data = Aramex::calculateRate($originAddress, $destinationAddress , $shipmentDetails , 'USD');
-        
+
         if(!$data->error){
           dd($data);
         }
         else{
           // handle $data->errors
         }
- ```
-   
-  ### Response Object Samples<br/>
-   -Success Response:
-
-``` json
-      {
-         "Transaction":{
-            "Reference1":"",
-            "Reference2":"",
-            "Reference3":"",
-            "Reference4":"",
-            "Reference5":null
-         },
-         "Notifications":{
-
-         },
-         "HasErrors":false,
-         "TotalAmount":{
-            "CurrencyCode":"USD",
-            "Value":1004.74
-         },
-         "RateDetails":{
-            "Amount":312.34,
-            "OtherAmount1":0,
-            "OtherAmount2":0,
-            "OtherAmount3":78.08,
-            "OtherAmount4":0,
-            "OtherAmount5":475.73,
-            "TotalAmountBeforeTax":866.15,
-            "TaxAmount":138.59
-         }
-      }
 ```
-    
-   -Fail Response
-    
+
+### Response Object Samples<br/>
+
+-Success Response:
+
 ```json
-    {
-      "error": 1,
-      "errors": "Error strings one by one."
-    }
+{
+  "Transaction": {
+    "Reference1": "",
+    "Reference2": "",
+    "Reference3": "",
+    "Reference4": "",
+    "Reference5": null
+  },
+  "Notifications": {},
+  "HasErrors": false,
+  "TotalAmount": {
+    "CurrencyCode": "USD",
+    "Value": 1004.74
+  },
+  "RateDetails": {
+    "Amount": 312.34,
+    "OtherAmount1": 0,
+    "OtherAmount2": 0,
+    "OtherAmount3": 78.08,
+    "OtherAmount4": 0,
+    "OtherAmount5": 475.73,
+    "TotalAmountBeforeTax": 866.15,
+    "TaxAmount": 138.59
+  }
+}
 ```
-  
-  
-  ### Track Shipments
-  This service show the detailed updates on the shipments you created.<br />
-  `Aramex::trackShipments($arrayOfShipmentIds);` <br /> 
-  Basically get the IDs of the created shipments (`$createShipmentResults->Shipments->ProcessedShipment->ID`) and stack the IDs in an array and pass the array to the function.<br />
-``` php
-        $shipments = [ 
+
+-Fail Response
+
+```json
+{
+  "error": 1,
+  "errors": "Error strings one by one."
+}
+```
+
+### Track Shipments
+
+This service show the detailed updates on the shipments you created.<br />
+`Aramex::trackShipments($arrayOfShipmentIds);` <br />
+Basically get the IDs of the created shipments (`$createShipmentResults->Shipments->ProcessedShipment->ID`) and stack the IDs in an array and pass the array to the function.<br />
+
+```php
+        $shipments = [
             $createShipmentResults->Shipments->ProcessedShipment->ID,
             $anotherCreateShipmentResults->Shipments->ProcessedShipment->ID,
         ];
 
         $data = Aramex::trackShipments($shipments);
 ```
-  
-  Sample Code<br />
-``` php
-        $shipments = [ 
+
+Sample Code<br />
+
+```php
+        $shipments = [
             $createShipmentResults->Shipments->ProcessedShipment->ID,
             $anotherCreateShipmentResults->Shipments->ProcessedShipment->ID,
         ];
 
         $data = Aramex::trackShipments($shipments);
-        
+
         if (!$data->error){
           // Code Here
         }
@@ -477,10 +473,11 @@ composer require octw/aramex
         }
 ```
 
-  Repsponse Sample <br />
-  Here I should mention if you pass wrong ID (Not Shipment ID) you will see the string you passed in `NonExistingWaybills` field. 
-``` json
-  {
+Repsponse Sample <br />
+Here I should mention if you pass wrong ID (Not Shipment ID) you will see the string you passed in `NonExistingWaybills` field.
+
+```json
+{
   "Transaction": {
     "Reference1": "",
     "Reference2": "",
@@ -492,7 +489,7 @@ composer require octw/aramex
   "HasErrors": false,
   "TrackingResults": {
     "KeyValueOfstringArrayOfTrackingResultmFAkxlpY": {
-      "Key": "IdOfTheShipemnt", 
+      "Key": "IdOfTheShipemnt",
       "Value": {
         "TrackingResult": [
           {
@@ -531,7 +528,7 @@ composer require octw/aramex
             "ChargeableWeight": "0.1",
             "WeightUnit": "KG"
           },
-      
+
           {
             "WaybillNumber": "30994423681",
             "UpdateCode": "SH014",
@@ -547,28 +544,28 @@ composer require octw/aramex
       }
     }
   },
-  "NonExistingWaybills":{
-    "string":[
-      "WrongIdIHavePassed",
-      "TestId" 
-    ]
+  "NonExistingWaybills": {
+    "string": ["WrongIdIHavePassed", "TestId"]
   }
 }
 ```
+
 ### Fetch Countries
 
-  Fetching Aramex's Countries that is supported by Aramex and stored in their database. <br />
-  You can either get all countries or get specific country information by passing country code as an optional parameter. <br />
-  Please note that i recommend to call this method and insert all the response to your database so you can get the countries from your database and it is based on their countries so you don't waste time and make it unefficient by calling this API whenever you want to process countries data.<br />
+Fetching Aramex's Countries that is supported by Aramex and stored in their database. <br />
+You can either get all countries or get specific country information by passing country code as an optional parameter. <br />
+Please note that i recommend to call this method and insert all the response to your database so you can get the countries from your database and it is based on their countries so you don't waste time and make it unefficient by calling this API whenever you want to process countries data.<br />
 
-``` php
+```php
 
-        $data = Aramex::fetchCountries($countryCode); 
-        // Or 
+        $data = Aramex::fetchCountries($countryCode);
+        // Or
         $data = Aramex::fetchCountries();
 ```
-  Response Sample <br />
-``` 
+
+Response Sample <br />
+
+```
   {
    "Transaction":{
       "Reference1":"",
@@ -610,18 +607,19 @@ composer require octw/aramex
    }
 }
 
-``` 
-
+```
 
 ### Fetch Cities
-  Fetching Aramex's Cities by country code.<br />
-``` php
 
-        $data = Aramex::fetchCities('AE'); 
+Fetching Aramex's Cities by country code.<br />
+
+```php
+
+        $data = Aramex::fetchCities('AE');
 
 ```
 
-  Response Sample <br />
+Response Sample <br />
 
 ```
 {
@@ -656,10 +654,11 @@ composer require octw/aramex
 ```
 
 ### Validate Address
-  
-  To validate addresses and skipping struggling with users' inputs thats not compatible with Aramex's end, You can validate addresses before creating pickups or shipments.
+
+To validate addresses and skipping struggling with users' inputs thats not compatible with Aramex's end, You can validate addresses before creating pickups or shipments.
+
 ```php
-  
+
   $data = Aramex::validateAddress([
     'line1':'Test', // optional (Passing it is recommended)
     'line2':'Test', // optional
@@ -671,24 +670,20 @@ composer require octw/aramex
 
 ```
 
-  Response Sample <br />
+Response Sample <br />
 
 ```json
 {
-   "Transaction":{
-      "Reference1":"",
-      "Reference2":"",
-      "Reference3":"",
-      "Reference4":"",
-      "Reference5":null
-   },
-   "Notifications":{
-
-   },
-   "HasErrors":false,
-   "SuggestedAddresses":{
-
-   }
+  "Transaction": {
+    "Reference1": "",
+    "Reference2": "",
+    "Reference3": "",
+    "Reference4": "",
+    "Reference5": null
+  },
+  "Notifications": {},
+  "HasErrors": false,
+  "SuggestedAddresses": {}
 }
 ```
 
@@ -696,9 +691,7 @@ Hope this helps you well, Buy me a coffee ;) <br />
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/MoustafaA11ahham)
 
-
-
-MIT Licence 
+MIT Licence
 
 Copyright 2019 Moustafa Allahham
 

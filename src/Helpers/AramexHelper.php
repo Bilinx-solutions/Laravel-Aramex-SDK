@@ -1,8 +1,8 @@
 <?php
 
-namespace Octw\Aramex\Helpers;
+namespace Shipper\Aramex\Helpers;
 
-use Octw\Aramex\Validators\Validator;
+use Shipper\Aramex\Validators\Validator;
 use SoapClient;
 
 /**

@@ -1,31 +1,38 @@
 {
-    "name": "octw/aramex",
-    "description": "A Library to integrate with Aramex APIs",
-    "type": "package",
-    "keywords": ["aramex", "sdk", "php", "laravel", "shipping", "integraton", "ship"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Moustafa Allahham",
-            "email": "iteng.moustafa@gmail.com",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-    },
-    "autoload": {
-        "psr-4": {
-            "Octw\\Aramex\\": "src/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Octw\\Aramex\\AramexServiceProvider"
-            ],
-            "aliases": {
-                "Aramex": "Octw\\Aramex\\Aramex"
-            }
-        }
+  "name": "shipper/aramex",
+  "description": "A Library to integrate with Aramex APIs",
+  "type": "package",
+  "keywords": [
+    "aramex",
+    "sdk",
+    "php",
+    "laravel",
+    "shipping",
+    "integraton",
+    "ship"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Moustafa Allahham",
+      "email": "iteng.moustafa@gmail.com",
+      "role": "Developer"
     }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Shipper\\Aramex\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Shipper\\Aramex\\AramexServiceProvider"
+      ],
+      "aliases": {
+        "Aramex": "Shipper\\Aramex\\Aramex"
+      }
+    }
+  }
 }
