@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Octw\Aramex\Helpers;
 
@@ -6,8 +6,8 @@ use Octw\Aramex\Validators\Validator;
 use SoapClient;
 
 /**
-* Basic Helper to extract data from param array and some validations.
-*/
+ * Basic Helper to extract data from param array and some validations.
+ */
 class AramexHelper
 {
     const SHIPPING = 1;
@@ -16,11 +16,12 @@ class AramexHelper
     const LOCATION = 4;
 
     /**
-    * @function just Data extraction nothing functional.
-    * @param Array of options.
-    * @return Object of all required details about the consignee.
-    */
-    public static function extractConsigneeObject($param = []){
+     * @function just Data extraction nothing functional.
+     * @param Array of options.
+     * @return Object of all required details about the consignee.
+     */
+    public static function extractConsigneeObject($param = [])
+    {
 
         //      Validation
 
@@ -28,12 +29,12 @@ class AramexHelper
         Validator::validateAddressObject($param);
 
         //      Extract Data into a new object
-        
+
         // Create the Objcect
         $consignee =  new \stdClass;
 
         // Start extracting
-        $consignee->name = $param['name']; 
+        $consignee->name = $param['name'];
         $consignee->email = $param['email'];
 
         $consignee->phone_number = $param['phone'];
@@ -45,13 +46,13 @@ class AramexHelper
         $consignee->line1 = $param['line1'];
         $consignee->line2 = $param['line2'];
         $consignee->line3 = $param['line3'];
-        
+
         return $consignee;
     }
 
 
 
-    public static function extractPickupAddressContact($param =[])
+    public static function extractPickupAddressContact($param = [])
     {
 
         //      Validation
@@ -64,7 +65,7 @@ class AramexHelper
         $pickupAddress = new \stdClass;
 
         // Start extracting
-        $pickupAddress->PersonName = $param['name']; 
+        $pickupAddress->PersonName = $param['name'];
         $pickupAddress->EmailAddress = $param['email'];
 
         $pickupAddress->PhoneNumber1 = $param['phone'];
@@ -72,12 +73,12 @@ class AramexHelper
 
         $pickupAddress->CountryCode = $param['country_code'];
         $pickupAddress->City = $param['city'];
-        $pickupAddress->ZipCode = isset($param['zip_code'])? $param['zip_code'] : '';
+        $pickupAddress->ZipCode = isset($param['zip_code']) ? $param['zip_code'] : '';
 
         $pickupAddress->Line1 = $param['line1'];
         $pickupAddress->Line2 = $param['line2'];
         $pickupAddress->Line3 = isset($param['line3']) ? $param['line3'] : '';
-        
+
         return $pickupAddress;
     }
 
@@ -92,10 +93,10 @@ class AramexHelper
         $pickupDetails = new \stdClass;
 
         // Start extracting
-        $pickupDetails->Reference1 = isset($param['reference1']) ? $param['reference1']: time() ; 
-        $pickupDetails->Reference2 = isset($param['reference2']) ? $param['reference2']:'' ;
-        $pickupDetails->Reference3 = isset($param['reference3']) ? $param['reference3']:'' ;
-        
+        $pickupDetails->Reference1 = isset($param['reference1']) ? $param['reference1'] : time();
+        $pickupDetails->Reference2 = isset($param['reference2']) ? $param['reference2'] : '';
+        $pickupDetails->Reference3 = isset($param['reference3']) ? $param['reference3'] : '';
+
         $pickupDetails->PickupLocation = $param['pickup_location'];
         $pickupDetails->Status = $param['status'];
 
@@ -103,10 +104,10 @@ class AramexHelper
         $pickupDetails->ReadyTime = $param['ready_time'];
         $pickupDetails->LastPickupTime = $param['last_pickup_time'];
         $pickupDetails->ClosingTime = $param['closing_time'];
-        
-        $pickupDetails->ProductGroup = isset($param['product_group']) ?$param['product_group'] : config('aramex.ProductGroup') ; 
-        $pickupDetails->Payment = isset($param['payment']) ?$param['payment'] : config('aramex.Payment') ; 
-        $pickupDetails->ProductType = isset($param['product_type']) ?$param['product_type'] : config('aramex.ProductType')  ; 
+
+        $pickupDetails->ProductGroup = isset($param['product_group']) ? $param['product_group'] : config('aramex.ProductGroup');
+        $pickupDetails->Payment = isset($param['payment']) ? $param['payment'] : config('aramex.Payment');
+        $pickupDetails->ProductType = isset($param['product_type']) ? $param['product_type'] : config('aramex.ProductType');
 
         $pickupDetails->Weight = $param['weight'];
         $pickupDetails->Volume = $param['volume'];
@@ -114,7 +115,7 @@ class AramexHelper
         return $pickupDetails;
     }
 
-    public static function extractShipperAddressContact($param = [] )
+    public static function extractShipperAddressContact($param = [])
     {
         // Validation 
 
@@ -122,7 +123,7 @@ class AramexHelper
 
         $addresDetails = new \stdClass;
 
-        $addresDetails->PersonName = $param['shipper']['name']; 
+        $addresDetails->PersonName = $param['shipper']['name'];
         $addresDetails->EmailAddress = $param['shipper']['email'];
 
         $addresDetails->PhoneNumber1 = $param['shipper']['phone'];
@@ -130,16 +131,16 @@ class AramexHelper
 
         $addresDetails->CountryCode = $param['shipper']['country_code'];
         $addresDetails->City = $param['shipper']['city'];
-        $addresDetails->ZipCode = isset($param['shipper']['zip_code'])? $param['shipper']['zip_code'] : '';
+        $addresDetails->ZipCode = isset($param['shipper']['zip_code']) ? $param['shipper']['zip_code'] : '';
 
         $addresDetails->Line1 = $param['shipper']['line1'];
         $addresDetails->Line2 = $param['shipper']['line2'];
         $addresDetails->Line3 = isset($param['shipper']['line3']) ? $param['shipper']['line3'] : '';
-        
-        return $addresDetails;
-    } 
 
-    public static function extractConsigneeAddressContact($param = [] )
+        return $addresDetails;
+    }
+
+    public static function extractConsigneeAddressContact($param = [])
     {
         // Validation 
 
@@ -147,7 +148,7 @@ class AramexHelper
 
         $addresDetails = new \stdClass;
 
-        $addresDetails->PersonName = $param['consignee']['name']; 
+        $addresDetails->PersonName = $param['consignee']['name'];
         $addresDetails->EmailAddress = $param['consignee']['email'];
 
         $addresDetails->PhoneNumber1 = $param['consignee']['phone'];
@@ -155,16 +156,42 @@ class AramexHelper
 
         $addresDetails->CountryCode = $param['consignee']['country_code'];
         $addresDetails->City = $param['consignee']['city'];
-        $addresDetails->ZipCode = isset($param['consignee']['zip_code'])? $param['consignee']['zip_code'] : '';
+        $addresDetails->ZipCode = isset($param['consignee']['zip_code']) ? $param['consignee']['zip_code'] : '';
 
         $addresDetails->Line1 = $param['consignee']['line1'];
         $addresDetails->Line2 = $param['consignee']['line2'];
         $addresDetails->Line3 = isset($param['consignee']['line3']) ? $param['consignee']['line3'] : '';
-        
+
         return $addresDetails;
     }
 
-    public static function extractShipmentDetails($param = []){
+    public static function extractThirdPartyAddressContact($param = [])
+    {
+        // Validation 
+
+        Validator::validateAddressObject($param['third_party']);
+
+        $addresDetails = new \stdClass;
+
+        $addresDetails->PersonName = $param['third_party']['name'];
+        $addresDetails->EmailAddress = $param['third_party']['email'];
+
+        $addresDetails->PhoneNumber1 = $param['third_party']['phone'];
+        $addresDetails->CellPhone = $param['third_party']['cell_phone'];
+
+        $addresDetails->CountryCode = $param['third_party']['country_code'];
+        $addresDetails->City = $param['third_party']['city'];
+        $addresDetails->ZipCode = isset($param['third_party']['zip_code']) ? $param['third_party']['zip_code'] : '';
+
+        $addresDetails->Line1 = $param['third_party']['line1'];
+        $addresDetails->Line2 = $param['third_party']['line2'];
+        $addresDetails->Line3 = isset($param['third_party']['line3']) ? $param['third_party']['line3'] : '';
+
+        return $addresDetails;
+    }
+
+    public static function extractShipmentDetails($param = [])
+    {
         // Validation 
 
         Validator::validateShipmentDetails($param);
@@ -174,14 +201,14 @@ class AramexHelper
         $shipmentDetails->ShippingDateTime = $param['shipping_date_time'];
         $shipmentDetails->DueDate = $param['due_date'];
         $shipmentDetails->Comments = $param['comments'];
-        
+
         $shipmentDetails->PickupLocation = $param['pickup_location'];
         $shipmentDetails->PickupGUID = $param['pickup_guid'];
-        
+
         $shipmentDetails->ActualWeight = $param['weight'];
         $shipmentDetails->NumberOfPieces = $param['number_of_pieces'] ?? 1;
         $shipmentDetails->GoodsOriginCountry = $param['goods_country'] ?? null;
-        
+
         $shipmentDetails->ProductGroup = $param['product_group'] ?? config('aramex.ProductGroup');
         $shipmentDetails->ProductType  = $param['product_type'] ?? config('aramex.ProductType');
         $shipmentDetails->PaymentType = $param['payment_type'] ?? config('aramex.Payment');
@@ -197,9 +224,9 @@ class AramexHelper
         $shipmentDetails->CollectAmount = $param['collect_amount'] ?? 0;
 
         $shipmentDetails->CashOnDeliveryAmount = $param['cash_on_delivery_amount'] ?? 0;
-        
+
         $shipmentDetails->InsuranceAmount = $param['insurance_amount'] ?? 0;
-        
+
         $shipmentDetails->CustomsValueAmount = $param['customs_value_amount'] ?? 0;
 
         $shipmentDetails->CashAdditionalAmount = $param['cash_additional_amount'] ?? 0;
@@ -216,12 +243,12 @@ class AramexHelper
         Validator::validateCalculateRateAddress($param);
 
         $address = new \stdClass;
-        
+
         $address->Line1 = $param['line1'];
         $address->Line2 = $param['line2'] ?? '';
         $address->Line3 = $param['line3'] ?? '';
-        $address->City = $param['city'] ;
-        $address->StateOrProvinceCode = $param['state_code'] ?? '' ;
+        $address->City = $param['city'];
+        $address->StateOrProvinceCode = $param['state_code'] ?? '';
         $address->PostCode = $param['postal_code'] ?? '';
         $address->CountryCode = $param['country_code'];
         $address->Longitude = $param['longitude'] ?? 0;
@@ -250,8 +277,7 @@ class AramexHelper
         $details->ActualWeight->Unit = 'KG';
         $details->NumberOfPieces = $param['number_of_pieces'];
 
-        if (!empty($param['length']) && !empty($param['width']) && !empty($param['height']) )
-        {
+        if (!empty($param['length']) && !empty($param['width']) && !empty($param['height'])) {
             $details->Dimensions =  new \stdClass;
             $details->Dimensions->Length = floatval($param['length']);
             $details->Dimensions->Width  = floatval($param['width']);
@@ -266,15 +292,13 @@ class AramexHelper
     {
         $test = false;
 
-        if(config('aramex.ENV') == 'TEST')
-        {
+        if (config('aramex.ENV') == 'TEST') {
             $test = true;
-        }
-        else if (config('aramex.ENV') != 'LIVE'){
-          throw new \Exception("Aramex ENV is invalid, Available values: 'TEST','LIVE' Check your config file 'config\aramex.php' ", 1);
+        } else if (config('aramex.ENV') != 'LIVE') {
+            throw new \Exception("Aramex ENV is invalid, Available values: 'TEST','LIVE' Check your config file 'config\aramex.php' ", 1);
         }
 
-        
+
         if (\PHP_VERSION_ID < 80000) {
             libxml_disable_entity_loader(true);
         }
@@ -283,32 +307,30 @@ class AramexHelper
             case self::SHIPPING:
                 if ($test)
                     return new SoapClient(dirname(__FILE__) . '/../../wsdls/test/shipping.xml', ['trace' => true, 'cache_wsdl' => WSDL_CACHE_MEMORY]);
-                else 
+                else
                     return new SoapClient(dirname(__FILE__) . '/../../wsdls/live/shipping.xml', ['trace' => true, 'cache_wsdl' => WSDL_CACHE_MEMORY]);
                 break;
 
             case self::TRACKING:
                 if ($test)
                     return new SoapClient(dirname(__FILE__) . '/../../wsdls/test/tracking.xml', ['trace' => true, 'cache_wsdl' => WSDL_CACHE_MEMORY]);
-                else 
+                else
                     return new SoapClient(dirname(__FILE__) . '/../../wsdls/live/tracking.xml', ['trace' => true, 'cache_wsdl' => WSDL_CACHE_MEMORY]);
                 break;
 
             case self::RATE:
                 if ($test)
                     return new SoapClient(dirname(__FILE__) . '/../../wsdls/test/rate.xml', ['trace' => true, 'cache_wsdl' => WSDL_CACHE_MEMORY]);
-                else 
+                else
                     return new SoapClient(dirname(__FILE__) . '/../../wsdls/live/rate.xml', ['trace' => true, 'cache_wsdl' => WSDL_CACHE_MEMORY]);
                 break;
 
             case self::LOCATION:
                 if ($test)
                     return new SoapClient(dirname(__FILE__) . '/../../wsdls/test/location.xml', ['trace' => true, 'cache_wsdl' => WSDL_CACHE_MEMORY]);
-                else 
+                else
                     return new SoapClient(dirname(__FILE__) . '/../../wsdls/live/location.xml', ['trace' => true, 'cache_wsdl' => WSDL_CACHE_MEMORY]);
                 break;
-            
         }
     }
-
 }
