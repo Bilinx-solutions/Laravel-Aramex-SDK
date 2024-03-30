@@ -35,7 +35,7 @@ class Core
      * @param : 1) None : will create the instance on test environment 
      *          2) ClientInfo : will create the instance on test or live environment (According to user ClientInfo credentials)
      */
-    public function __construct($account)
+    public function __construct($account, $LabelInfo = null)
     {
         $this->param = [
             'ClientInfo'            => [
@@ -53,7 +53,7 @@ class Core
                 'Reference3'            => '', // extra param for response
                 'Reference4'            => '', // extra param for response
             ],
-            'LabelInfo'     => config('aramex.LabelInfo'),
+            'LabelInfo'     => $LabelInfo ?? config('aramex.LabelInfo'),
         ];
 
         $this->env = config('aramex.ENV');

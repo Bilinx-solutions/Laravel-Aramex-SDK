@@ -64,7 +64,7 @@ class Aramex
         return $ret;
     }
 
-    public static function cancelPickup($account, $pickupGuid, $commnent)
+    public static function cancelPickup($account, $pickupGuid, $comment)
     {
         // Define an instance from the core class.
         $aramex = new Core($account);
@@ -73,7 +73,7 @@ class Aramex
         $soapClient = AramexHelper::getSoapClient(AramexHelper::SHIPPING);
 
 
-        $aramex->initializePickupCancelation($pickupGuid, $commnent);
+        $aramex->initializePickupCancelation($pickupGuid, $comment);
 
         $call = $soapClient->CancelPickup($aramex->getParam());
 
@@ -94,10 +94,10 @@ class Aramex
      * @param array of shipment parameters 
      * @return object described in https://
      **/
-    public static function createShipment($account, $param = [])
+    public static function createShipment($account, $param = [], $labelInfo = null)
     {
         // Define an instance from the core class.
-        $aramex = new Core($account);
+        $aramex = new Core($account, $labelInfo);
         // Import SoapCLient object from Aramex's endpoint. 
 
         $soapClient = AramexHelper::getSoapClient(AramexHelper::SHIPPING);
