@@ -234,6 +234,8 @@ class AramexHelper
 
         $shipmentDetails->CurrencyCode = $param['currency_code'] ?? config('aramex.CurrencyCode');
 
+        $shipmentDetails->ForeignHAWB = $param['foreign_hawb'] ?? null;
+
         return $shipmentDetails;
     }
 

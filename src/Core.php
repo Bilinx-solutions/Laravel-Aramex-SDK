@@ -136,7 +136,7 @@ class Core
                 "Comments"          => $details->Comments, //Should Be Filled
                 "PickupLocation"    => $details->PickupLocation, // Should be Filled
                 "Attachments"       => null,
-                "ForeignHAWB"       => null,
+                "ForeignHAWB"       => $details->ForeignHAWB,
                 'Reference1'        => $details->Reference1, // for response              
                 "TransportType"     => 0,
                 "PickupGUID"        => $details->PickupGUID,
