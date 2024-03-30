@@ -305,7 +305,8 @@ class Core
 
     public function initializeShipmentTracking($param)
     {
-        $this->param['Shipments'] = $param;
+        $this->param['Shipments'] = $param['shipments'];
+        $this->param['GetLastTrackingUpdateOnly'] = $param['getLastTrackingUpdateOnly'] ?? false;
     }
 
     public function initializeFetchCountries($code = null)
