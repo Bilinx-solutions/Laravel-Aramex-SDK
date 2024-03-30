@@ -171,7 +171,7 @@ class Aramex
             throw new \Exception("trackShipments Parameter Should Be an Array includes Strings", 1);
         }
 
-        foreach ($param as $shipmentId) {
+        foreach ($param['shipments'] as $shipmentId) {
             if (!is_string($shipmentId)) {
                 throw new \Exception("trackShipments Parameter Should Be an Array includes Strings", 1);
             }
