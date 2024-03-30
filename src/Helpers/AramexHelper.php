@@ -203,7 +203,7 @@ class AramexHelper
         $shipmentDetails->Comments = $param['comments'];
 
         $shipmentDetails->PickupLocation = $param['pickup_location'];
-        $shipmentDetails->PickupGUID = $param['pickup_guid'];
+        $shipmentDetails->PickupGUID = $param['pickup_guid'] ?? null;
 
         $shipmentDetails->ActualWeight = $param['weight'];
         $shipmentDetails->NumberOfPieces = $param['number_of_pieces'] ?? 1;
