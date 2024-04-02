@@ -20,7 +20,7 @@ trait Validator
 			"email"  => "required|min:3",
 			"city"  => "required|min:3",
 			"country_code"  => "required|min:2",
-			"line1"  => "required|min:5",
+			"line1"  => "required|min:1",
 			// "line2"  => "required|min:5",
 		]);
 		if ($validator->fails()) {
