@@ -69,6 +69,7 @@ class AramexHelper
         $pickupAddress->EmailAddress = $param['email'];
 
         $pickupAddress->PhoneNumber1 = $param['phone'];
+        $pickupAddress->PhoneNumber2 = isset($param['phone2']) ? $param['phone2'] : '';
         $pickupAddress->CellPhone = $param['cell_phone'];
 
         $pickupAddress->CountryCode = $param['country_code'];
@@ -121,23 +122,24 @@ class AramexHelper
 
         Validator::validateAddressObject($param['shipper']);
 
-        $addresDetails = new \stdClass;
+        $addressDetails = new \stdClass;
 
-        $addresDetails->PersonName = $param['shipper']['name'];
-        $addresDetails->EmailAddress = $param['shipper']['email'];
+        $addressDetails->PersonName = $param['shipper']['name'];
+        $addressDetails->EmailAddress = $param['shipper']['email'];
 
-        $addresDetails->PhoneNumber1 = $param['shipper']['phone'];
-        $addresDetails->CellPhone = $param['shipper']['cell_phone'];
+        $addressDetails->PhoneNumber1 = $param['shipper']['phone'];
+        $addressDetails->PhoneNumber2 = isset($param['shipper']['phone2']) ? $param['shipper']['phone2'] : '';
+        $addressDetails->CellPhone = $param['shipper']['cell_phone'];
 
-        $addresDetails->CountryCode = $param['shipper']['country_code'];
-        $addresDetails->City = $param['shipper']['city'];
-        $addresDetails->ZipCode = isset($param['shipper']['zip_code']) ? $param['shipper']['zip_code'] : '';
+        $addressDetails->CountryCode = $param['shipper']['country_code'];
+        $addressDetails->City = $param['shipper']['city'];
+        $addressDetails->ZipCode = isset($param['shipper']['zip_code']) ? $param['shipper']['zip_code'] : '';
 
-        $addresDetails->Line1 = $param['shipper']['line1'];
-        $addresDetails->Line2 = $param['shipper']['line2'];
-        $addresDetails->Line3 = isset($param['shipper']['line3']) ? $param['shipper']['line3'] : '';
+        $addressDetails->Line1 = $param['shipper']['line1'];
+        $addressDetails->Line2 = $param['shipper']['line2'];
+        $addressDetails->Line3 = isset($param['shipper']['line3']) ? $param['shipper']['line3'] : '';
 
-        return $addresDetails;
+        return $addressDetails;
     }
 
     public static function extractConsigneeAddressContact($param = [])
@@ -146,23 +148,24 @@ class AramexHelper
 
         Validator::validateAddressObject($param['consignee']);
 
-        $addresDetails = new \stdClass;
+        $addressDetails = new \stdClass;
 
-        $addresDetails->PersonName = $param['consignee']['name'];
-        $addresDetails->EmailAddress = $param['consignee']['email'];
+        $addressDetails->PersonName = $param['consignee']['name'];
+        $addressDetails->EmailAddress = $param['consignee']['email'];
 
-        $addresDetails->PhoneNumber1 = $param['consignee']['phone'];
-        $addresDetails->CellPhone = $param['consignee']['cell_phone'];
+        $addressDetails->PhoneNumber1 = $param['consignee']['phone'];
+        $addressDetails->PhoneNumber2 = isset($param['consignee']['phone2']) ? $param['consignee']['phone2'] : '';
+        $addressDetails->CellPhone = $param['consignee']['cell_phone'];
 
-        $addresDetails->CountryCode = $param['consignee']['country_code'];
-        $addresDetails->City = $param['consignee']['city'];
-        $addresDetails->ZipCode = isset($param['consignee']['zip_code']) ? $param['consignee']['zip_code'] : '';
+        $addressDetails->CountryCode = $param['consignee']['country_code'];
+        $addressDetails->City = $param['consignee']['city'];
+        $addressDetails->ZipCode = isset($param['consignee']['zip_code']) ? $param['consignee']['zip_code'] : '';
 
-        $addresDetails->Line1 = $param['consignee']['line1'];
-        $addresDetails->Line2 = $param['consignee']['line2'];
-        $addresDetails->Line3 = isset($param['consignee']['line3']) ? $param['consignee']['line3'] : '';
+        $addressDetails->Line1 = $param['consignee']['line1'];
+        $addressDetails->Line2 = $param['consignee']['line2'];
+        $addressDetails->Line3 = isset($param['consignee']['line3']) ? $param['consignee']['line3'] : '';
 
-        return $addresDetails;
+        return $addressDetails;
     }
 
     public static function extractThirdPartyAddressContact($param = [])
@@ -171,23 +174,24 @@ class AramexHelper
 
         Validator::validateAddressObject($param['third_party']);
 
-        $addresDetails = new \stdClass;
+        $addressDetails = new \stdClass;
 
-        $addresDetails->PersonName = $param['third_party']['name'];
-        $addresDetails->EmailAddress = $param['third_party']['email'];
+        $addressDetails->PersonName = $param['third_party']['name'];
+        $addressDetails->EmailAddress = $param['third_party']['email'];
 
-        $addresDetails->PhoneNumber1 = $param['third_party']['phone'];
-        $addresDetails->CellPhone = $param['third_party']['cell_phone'];
+        $addressDetails->PhoneNumber1 = $param['third_party']['phone'];
+        $addressDetails->PhoneNumber2 = isset($param['third_party']['phone2']) ? $param['third_party']['phone2'] : '';
+        $addressDetails->CellPhone = $param['third_party']['cell_phone'];
 
-        $addresDetails->CountryCode = $param['third_party']['country_code'];
-        $addresDetails->City = $param['third_party']['city'];
-        $addresDetails->ZipCode = isset($param['third_party']['zip_code']) ? $param['third_party']['zip_code'] : '';
+        $addressDetails->CountryCode = $param['third_party']['country_code'];
+        $addressDetails->City = $param['third_party']['city'];
+        $addressDetails->ZipCode = isset($param['third_party']['zip_code']) ? $param['third_party']['zip_code'] : '';
 
-        $addresDetails->Line1 = $param['third_party']['line1'];
-        $addresDetails->Line2 = $param['third_party']['line2'];
-        $addresDetails->Line3 = isset($param['third_party']['line3']) ? $param['third_party']['line3'] : '';
+        $addressDetails->Line1 = $param['third_party']['line1'];
+        $addressDetails->Line2 = $param['third_party']['line2'];
+        $addressDetails->Line3 = isset($param['third_party']['line3']) ? $param['third_party']['line3'] : '';
 
-        return $addresDetails;
+        return $addressDetails;
     }
 
     public static function extractShipmentDetails($param = [])
