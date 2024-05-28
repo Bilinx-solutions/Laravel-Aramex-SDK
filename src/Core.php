@@ -78,6 +78,7 @@ class Core
                         'PersonName'            => $shipper->PersonName,
                         'CompanyName'           => $shipper->CompanyName ?? $shipper->PersonName,
                         'PhoneNumber1'          => $shipper->PhoneNumber1,
+                        'PhoneNumber2'          => $shipper->PhoneNumber2,
                         'CellPhone'             => $shipper->CellPhone,
                         'EmailAddress'          => $shipper->EmailAddress,
                     ],
@@ -100,6 +101,7 @@ class Core
                         'PersonName'            => $consignee->PersonName, //Person Name 
                         'CompanyName'           => $consignee->PersonName,
                         'PhoneNumber1'          => $consignee->PhoneNumber1, //Phone Number
+                        'PhoneNumber2'          => $consignee->PhoneNumber2, //Phone Number
                         'CellPhone'             => $consignee->CellPhone, //Cell Phone 
                         'EmailAddress'          => $consignee->EmailAddress, // Email
                     ],
@@ -120,6 +122,7 @@ class Core
                         'PersonName'            => $thirdParty->PersonName, //Person Name 
                         'CompanyName'           => $thirdParty->PersonName,
                         'PhoneNumber1'          => $thirdParty->PhoneNumber1, //Phone Number
+                        'PhoneNumber2'          => $thirdParty->PhoneNumber2, //Phone Number
                         'CellPhone'             => $thirdParty->CellPhone, //Cell Phone 
                         'EmailAddress'          => $thirdParty->EmailAddress, // Email
                     ],
@@ -253,6 +256,7 @@ class Core
                 'PersonName'    => $pickupAddress->PersonName, // should be static 'SomeName',
                 'CompanyName'   => $pickupAddress->CompanyName ?? $pickupAddress->PersonName, // config file
                 'PhoneNumber1'  => $pickupAddress->PhoneNumber1, // should be static '0777777',
+                'PhoneNumber2'  => $pickupAddress->PhoneNumber2, // should be static '0777777',
                 'CellPhone'     => $pickupAddress->CellPhone, // should be static '0555555',
                 'EmailAddress'  => $pickupAddress->EmailAddress // should be static 'email@somedomain.com'
             ],
