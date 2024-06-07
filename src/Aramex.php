@@ -16,13 +16,13 @@ class Aramex
      *  @param array of pickup parameters
      *  @return object described in https://
      */
-    public static function createPickup($account, $param = [])
+    public static function createPickup($account, $param = [], $proxy = null)
     {
         // Define an instance from the core class.
         $aramex = new Core($account);
         // Import SoapCLient object from Aramex's endpoint.
 
-        $soapClient = AramexHelper::getSoapClient(AramexHelper::SHIPPING);
+        $soapClient = AramexHelper::getSoapClient(AramexHelper::SHIPPING, $proxy);
 
 
         // Preparation for initializing pickup request (Extract the data). 
@@ -64,13 +64,13 @@ class Aramex
         return $ret;
     }
 
-    public static function cancelPickup($account, $pickupGuid, $comment)
+    public static function cancelPickup($account, $pickupGuid, $comment, $proxy = null)
     {
         // Define an instance from the core class.
         $aramex = new Core($account);
 
         // Import SoapCLient object from Aramex's endpoint. 
-        $soapClient = AramexHelper::getSoapClient(AramexHelper::SHIPPING);
+        $soapClient = AramexHelper::getSoapClient(AramexHelper::SHIPPING, $proxy);
 
 
         $aramex->initializePickupCancelation($pickupGuid, $comment);
@@ -94,13 +94,13 @@ class Aramex
      * @param array of shipment parameters 
      * @return object described in https://
      **/
-    public static function createShipment($account, $param = [], $labelInfo = null)
+    public static function createShipment($account, $param = [], $labelInfo = null, $proxy = null)
     {
         // Define an instance from the core class.
         $aramex = new Core($account, $labelInfo);
         // Import SoapCLient object from Aramex's endpoint. 
 
-        $soapClient = AramexHelper::getSoapClient(AramexHelper::SHIPPING);
+        $soapClient = AramexHelper::getSoapClient(AramexHelper::SHIPPING, $proxy);
 
         $shipperAddress = AramexHelper::extractShipperAddressContact($param);
         $consigneeAddress = AramexHelper::extractConsigneeAddressContact($param);
@@ -134,12 +134,12 @@ class Aramex
 
 
 
-    public static function calculateRate($account, $origin, $destination, $shipmentDetails, $currency)
+    public static function calculateRate($account, $origin, $destination, $shipmentDetails, $currency, $proxy = null)
     {
 
         $aramex = new Core($account);
 
-        $soapClient = AramexHelper::getSoapClient(AramexHelper::RATE);
+        $soapClient = AramexHelper::getSoapClient(AramexHelper::RATE, $proxy);
 
 
         $destinationAddress = AramexHelper::extractAddress($destination);
@@ -165,7 +165,7 @@ class Aramex
     }
 
 
-    public static function trackShipments($account, $param)
+    public static function trackShipments($account, $param, $proxy = null)
     {
         if (!is_array($param)) {
             throw new \Exception("trackShipments Parameter Should Be an Array includes Strings", 1);
@@ -177,7 +177,7 @@ class Aramex
             }
         }
 
-        $soapClient = AramexHelper::getSoapClient(AramexHelper::TRACKING);
+        $soapClient = AramexHelper::getSoapClient(AramexHelper::TRACKING, $proxy);
 
 
         $aramex = new Core($account);
@@ -199,10 +199,10 @@ class Aramex
     }
 
 
-    public static function fetchCountries($account, $code = null)
+    public static function fetchCountries($account, $code = null, $proxy = null)
     {
 
-        $soapClient = AramexHelper::getSoapClient(AramexHelper::LOCATION);
+        $soapClient = AramexHelper::getSoapClient(AramexHelper::LOCATION, $proxy);
 
         $aramex = new Core($account);
 
@@ -225,9 +225,9 @@ class Aramex
         return $ret;
     }
 
-    public static function fetchCities($account, $code, $nameStartWith = null)
+    public static function fetchCities($account, $code, $nameStartWith = null, $proxy = null)
     {
-        $soapClient = AramexHelper::getSoapClient(AramexHelper::LOCATION);
+        $soapClient = AramexHelper::getSoapClient(AramexHelper::LOCATION, $proxy);
 
         $aramex = new Core($account);
 
@@ -247,12 +247,12 @@ class Aramex
         return $ret;
     }
 
-    public static function validateAddress($account, $address)
+    public static function validateAddress($account, $address, $proxy = null)
     {
         $address = AramexHelper::extractAddress($address);
 
 
-        $soapClient = AramexHelper::getSoapClient(AramexHelper::LOCATION);
+        $soapClient = AramexHelper::getSoapClient(AramexHelper::LOCATION, $proxy);
 
         $aramex = new Core($account);
 
