@@ -14,11 +14,11 @@ trait Validator
 	public static function validateAddressObject($param)
 	{
 		$validator = StandardValidator::make($param, [
-			"name"  => "required|min:3",
+			"name"  => "required|min:1",
 			"cell_phone"  => "required|min:8",
 			"phone"  => "required|min:8",
 			"email"  => "required|min:3",
-			"city"  => "required|min:3",
+			"city"  => "required|min:1",
 			"country_code"  => "required|min:2",
 			"line1"  => "required|min:1",
 			// "line2"  => "required|min:5",
